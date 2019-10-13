@@ -39,7 +39,8 @@ class Printer implements Runnable {
                         counter.wait();
 
                     } catch (InterruptedException e) {
-                        System.out.println("error"); // TODO
+                        Thread.currentThread().interrupt();
+                        e.printStackTrace();
                     }
                 }
             }
