@@ -37,14 +37,12 @@ class Printer implements Runnable {
                 while (this.number != counter.getToPrint()) {
                     try {
                         counter.wait();
-
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                         e.printStackTrace();
                     }
                 }
             }
-
             System.out.println("Thread " + this.number + " printing " + this.counter.getToPrint());
             this.counter.increment();
             synchronized (this.counter) {
