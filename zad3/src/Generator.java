@@ -25,28 +25,32 @@ public class Generator implements Runnable{
 
     @Override
     public void run() {
+        System.out.println("Generator started!");
         Thread threads[] = new Thread[2*pkConfig];
         Buffer buffer = isFair? new FairBuffer() : new UnfairBuffer(buffSize);
         for(int i = 0; i < pkConfig; ++i){
-            threads[2*i] = new Thread(new Consumer(buffer, buffSize, randomization, pkConfig, getSize(buffSize, randomization))); // consumers
-            threads[2*i+1] = new Thread(new Producer(buffer, buffSize, randomization, pkConfig, getSize(buffSize, randomization))); // producers
+            threads[2*i] = new Thread(new Consumer(buffer, 2*buffSize, randomization, pkConfig, getSize(buffSize, randomization))); // consumers
+            threads[2*i+1] = new Thread(new Producer(buffer, 2*buffSize, randomization, pkConfig, getSize(buffSize, randomization))); // producers
         }
         for(int i = 0; i < 2*pkConfig; ++i){
             threads[i].start();
         }
         try {
-            Thread.sleep(10000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return;
+
+        for(int i = 0; i < 2*pkConfig; ++i){
+            threads[i].interrupt();
+        }
     }
 
     public static Integer getSize(Integer bufsize, String randomization){
         if(randomization.equals("Equal")){
-            return 3;
+            return 100;
         }else if(randomization.equals("Unequal")){
-            return 3;
+            return 100;
         }else throw new RuntimeException("Wrong randomization arg");
     }
 }
