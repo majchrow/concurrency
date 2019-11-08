@@ -42,7 +42,4 @@ public class UnfairBuffer implements Buffer{
         }catch (InterruptedException e) { e.printStackTrace(); }
         finally { lock.unlock(); }
     }
-
 }
-
-
