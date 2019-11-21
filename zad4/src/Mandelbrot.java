@@ -33,7 +33,6 @@ public class Mandelbrot extends JFrame {
             executorService.invokeAll(tasks); // await for all task to finish
             executorService.shutdown();
             System.out.println(threadNumber + "," + (System.nanoTime() - time));
-//            System.exit(0);
         }catch (InterruptedException e){
             e.printStackTrace();
         }
