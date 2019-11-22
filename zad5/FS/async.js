@@ -7,7 +7,7 @@ var counter = 0;
 var task_counter = 0;
 var start = 0;
 
-function callback() {
+async function callback() {
     task_counter--;
     if (task_counter === 0) {
         console.log(counter);
@@ -36,7 +36,7 @@ async function dir_traversal_async(dir_name) {
         }
     });
     task_counter = tasks.length;
-    start = start = new Date().getTime();
+    start = new Date().getTime();
     parrarel(tasks);
 }
 

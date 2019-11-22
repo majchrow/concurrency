@@ -37,7 +37,7 @@ async function dir_traversal_sync(dir_name) {
         }
     });
     task_counter = tasks.length;
-    start = start = new Date().getTime();
+    start = new Date().getTime();
     series(tasks);
 }
 
