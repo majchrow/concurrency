@@ -1,6 +1,5 @@
 const fs = require('fs');
 const walk = require('walkdir');
-const series = require('async/series');
 
 var tasks = [];
 var counter = 0;
@@ -17,7 +16,8 @@ function callback() {
 
 async function dir_traversal_sync(dir_name) {
 
-    await walk.async(dir_name, function (path, stat) {
+    start = new Date().getTime();
+    walk.sync(dir_name, function (path, stat) {
         if (stat.isFile()) {
             tasks.push(async function count_lines() {
                 var count = 0;
@@ -37,8 +37,9 @@ async function dir_traversal_sync(dir_name) {
         }
     });
     task_counter = tasks.length;
-    start = new Date().getTime();
-    series(tasks);
+     for (index = 0, len = tasks.length; index < len; ++index) {
+           await tasks[index]();
+     }
 }
 
 dir_traversal_sync('TESTDIR');

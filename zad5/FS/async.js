@@ -1,13 +1,12 @@
 const fs = require('fs');
 const walk = require('walkdir');
-const parrarel = require('async/parallel');
 
 var tasks = [];
 var counter = 0;
 var task_counter = 0;
 var start = 0;
 
-async function callback() {
+function callback() {
     task_counter--;
     if (task_counter === 0) {
         console.log(counter);
@@ -15,9 +14,10 @@ async function callback() {
     }
 };
 
-async function dir_traversal_async(dir_name) {
+function dir_traversal_async(dir_name) {
 
-    await walk.async(dir_name, function (path, stat) {
+    start = new Date().getTime();
+    walk(dir_name, function (path, stat) {
         if (stat.isFile()) {
             tasks.push(async function count_lines() {
                 var count = 0;
@@ -34,10 +34,12 @@ async function dir_traversal_async(dir_name) {
                 });
             });
         }
+    }).on('end', function(){
+        task_counter = tasks.length;
+        for (index = 0, len = tasks.length; index < len; ++index) {
+           tasks[index]();
+        }
     });
-    task_counter = tasks.length;
-    start = new Date().getTime();
-    parrarel(tasks);
 }
 
 dir_traversal_async('TESTDIR');
