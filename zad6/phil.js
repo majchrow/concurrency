@@ -13,8 +13,6 @@
 //    implementacji zmierz średni czas oczekiwania każdego filozofa na dostęp
 //    do widelców. Wyniki przedstaw na wykresach.
 
-const async = require('async');
-
 const eatTime = 100;
 const thinkTime = 100;
 const waiterQueue = [];
@@ -222,9 +220,7 @@ acquireBoth = function (f1, f2, cb) {
 
 
 Philosopher.prototype.startBoth = function (count) {
-    // zaimplementuj rozwiązanie asymetryczne
-    // każdy filozof powinien 'count' razy wykonywać cykl
-    // podnoszenia widelców -- jedzenia -- zwalniania widelców
+// Algorytm BEB powinien obejmować podnoszenie obu widelców, a nie każdego z osobna
     var forks = this.forks,
         f1 = this.f1,
         f2 = this.f2,
@@ -249,21 +245,33 @@ Philosopher.prototype.startBoth = function (count) {
     }
 };
 
+// var forks = [];
+// var philosophers = [];
+//
+// for (let i = 0; i < N; i++) {
+//     forks.push(new Fork());
+//     timeQueue.push(0.);
+// }
+//
+// for (let i = 0; i < N; i++) {
+//     philosophers.push(new Philosopher(i, forks));
+// }
+//
 // Naiwne (mamy blokade)
 // for (let i = 0; i < N; i++) {
 //     philosophers[i].startNaive(10);
 // }
-
+//
 // Asymetryczne
 // for (let i = 0; i < N; i++) {
 //     philosophers[i].startAsym(10);
 // }
-
+//
 // Z kelnerem
 // for (let i = 0; i < N; i++) {
 //     philosophers[i].startConductor(10);
 // }
-
+//
 // Z podnoszeniem 2 jednocześnie (mamy głodzenie, nie ma blokady)
 // for (let i = 0; i < N; i++) {
 //     philosophers[i].startBoth(10);

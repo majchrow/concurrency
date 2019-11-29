@@ -5,5 +5,5 @@
 #### Node.JS required.
 
 To run programs type in command line
-* `npm install`
-* `node <name>*.js`
+* `node phil.js mode number`
+* `bash test.sh`
